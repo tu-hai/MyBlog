@@ -234,8 +234,6 @@ export class ACrudService {
     let x = this.http.get<UPost[]>(`https://write-your-heart-out-b338b.firebaseio.com/post/${this.uid}/public.json`)
     let y = this.http.get<UPost[]>(`https://write-your-heart-out-b338b.firebaseio.com/post/${this.uid}/private.json`)
     return forkJoin(x, y)
-
-
   }
   seprate(x1) {
     let x3 = []
@@ -814,7 +812,7 @@ export class ACrudService {
 
   getFeaturedPost() {
     return new Promise(resolve => {
-      this.http.get('assets/post.json').subscribe(d => {
+      this.http.get(`https://write-your-heart-out-b338b.firebaseio.com/post.json`).subscribe(d => {
           let x = this.seprate(d)
 
           let z = []

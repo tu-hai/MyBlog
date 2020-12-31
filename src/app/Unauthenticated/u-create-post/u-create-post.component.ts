@@ -95,12 +95,12 @@ export class UCreatePostComponent implements OnInit {
 
     this.userSub = this.authService.user.subscribe(user => {
       this.isAuthenticated = !!user;
-  
+
       let uid=user.uid
       this.acrud.getProfileFromUid(uid).subscribe(data=>{
         let profile=this.acrud.seprate(data)
         this.isprofileset=profile[0].isProfileSet
-      
+
         if(!this.isprofileset){
           this.router.navigate(['myprofile'])
           this.acrud.showWarningForProfileSet()
@@ -110,7 +110,7 @@ export class UCreatePostComponent implements OnInit {
     })
 
 
-/* 
+/*
     this.acrud.getProfileFromUid() */
 
     this.createForm();
@@ -149,16 +149,13 @@ export class UCreatePostComponent implements OnInit {
     });
   }
   onSubmit(value: UPost) {
-
     if (!!this.isAuthenticated) {
-
       if (this.exampleForm.value.privacy == "true") {
         this.firebaseService.createUser(value)
       }
       this.acrud.createPost(value)
       this.exampleForm.reset();
       this.isloading = true
-
     }
     else {
       this.firebaseService.createUser(value)

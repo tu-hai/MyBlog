@@ -74,10 +74,6 @@ export class UPostDetailComponent implements OnInit {
 
 
   ngOnInit() {
-
-
-
-
     this.href = this.router.url;
     this.xyz = this.href.split("/")
     this.id = this.xyz[2]
@@ -122,7 +118,6 @@ export class UPostDetailComponent implements OnInit {
           }
         })
 
-
     this.userSub = this.authService.user.subscribe(user => {
       if (user) {
         this.currentUserId = user.uid
@@ -141,9 +136,7 @@ export class UPostDetailComponent implements OnInit {
   getUidandUname() {
     this.acrud.getProfile().subscribe(d => {
       let x = this.acrud.seprate(d)
-
       this.username = x[0].uname
-
     })
   }
   getLikeCountandStatus() {
@@ -152,8 +145,6 @@ export class UPostDetailComponent implements OnInit {
         this.count = d
 
       }
-
-
     })
     this.acrud.PostDataForLikedByUser.subscribe(d => {
       let x = this.acrud.seprate(d)
@@ -164,7 +155,6 @@ export class UPostDetailComponent implements OnInit {
 
         }
       }
-
     })
   }
   getPostFromProfile(uname) {
@@ -178,7 +168,6 @@ export class UPostDetailComponent implements OnInit {
         d => {
           let x = this.acrud.seprate(d)
           this.ProfileImgUrl = x[0]?.imgurl
-
         }
       )
     })
@@ -196,27 +185,19 @@ export class UPostDetailComponent implements OnInit {
       this.post_userid = this.publicpostOfSingleUser.uid
       this.getComment(this.publicpostOfSingleUser.uid, this.publicpostOfSingleUser.title, this.publicpostOfSingleUser.desc)
       this.acrud.getPostDetailForLike(this.post_userid, this.posttitle, this.postdesc)
-
-
     })
   }
 
   getFeaturedPost() {
     this.isFetching = true
-
-
     this.acrud.getFeaturedPost().then((d: any) => {
-
-
       this.publicpostOfSingleUser = d[this.id]
       this.acrud.getPublicProfile(this.publicpostOfSingleUser.uname).subscribe(
         d => {
           let x = this.acrud.seprate(d)
           this.ProfileImgUrl = x[0]?.imgurl
-
         }
       )
-
       let id = this.id
       this.posttitle = this.publicpostOfSingleUser.title
       this.postdesc = this.publicpostOfSingleUser.desc
@@ -234,23 +215,15 @@ export class UPostDetailComponent implements OnInit {
     this.acrud.getAllPost().then((x: any) => {
       this.isFetching = false
       this.sortDesecendingByDate(x)
-
-
       this.unauthpost = x[this.id]
-
-
-
       if (this.unauthpost?.uid) {
 
         this.post_userid = this.unauthpost?.uid
         this.posttitle = this.unauthpost?.title
         this.postdesc = this.unauthpost?.desc
-
         this.getProfileFromUid(this.post_userid)
         this.postDate = this.unauthpost.created_date
-
         this.acrud.getPostDetailForLike(this.post_userid, this.posttitle, this.postdesc)
-
         this.getComment(this.post_userid, this.unauthpost.title, this.unauthpost.desc)
 
       }
@@ -263,12 +236,7 @@ export class UPostDetailComponent implements OnInit {
         this.error = err;
 
       })
-
-
-
   }
-
-
   sortDesecendingByDate(data) {
     return data.sort((a: any, b: any) =>
       <any>new Date(b.created_date) - <any>new Date(a.created_date)
@@ -279,21 +247,16 @@ export class UPostDetailComponent implements OnInit {
     this.isFetching = true;
     this.cd.get_public_post()
       .subscribe(result => {
-
         this.unauthpostss = result.map(e => {
           return {
             ...e.payload.doc.data() as {}
           } as UPost
-
-
-
         },
           err => {
             this.error = err;
           })
         this.isFetching = false
         this.sortDesecending()
-
         this.unauthpost = this.unauthpostss[this.id];
         if (this.unauthpost == undefined) {
           this.router.navigate(["home"])
@@ -309,10 +272,7 @@ export class UPostDetailComponent implements OnInit {
           this.postDate = this.unauthpost.created_date
           this.postDate = this.postDate.toDate()
           this.acrud.getPostDetailForLike(this.post_userid, this.posttitle, this.postdesc)
-
-
           this.getComment(this.post_userid, this.unauthpost.title, this.unauthpost.desc)
-
         }
         else {
           this.router.navigate(["home"])
@@ -321,7 +281,6 @@ export class UPostDetailComponent implements OnInit {
         , err => {
           this.errorkey = err;
         });
-
   }
 
   getComment(postid, title, desc) {
@@ -329,65 +288,42 @@ export class UPostDetailComponent implements OnInit {
       .then(d => {
         return new Promise(resolve => {
           resolve(d)
-
         })
-
       })
 
     if (CommentKeyPromise) {
-
-
       CommentKeyPromise.then(key => {
         this.acrud.getCommentDataFromKey(postid, key)
           .subscribe((commentData: Comment) => {
-
             this.Comment_Data = this.acrud.seprate(commentData)
-
             if (commentData) {
               this.Comment_Data.sort((a, b) => new Date(b.commentOn).getTime() - new Date(a.commentOn).getTime());
             }
-
-
             for (let i in this.Comment_Data) {
               this.acrud.getProfileFromUid(this.Comment_Data[i].commentByUserId)
                 .subscribe(data => {
-
                   let x = this.acrud.seprate(data)
-
                   this.Comment_Data[i].uname = x[0].uname
-
                 })
-
             }
-
-
           })
       })
     }
   }
 
   getProfileFromUid(postuserid) {
-
     this.acrud.getProfileFromUid(postuserid)
       .subscribe((data) => {
-
         let profile = this.acrud.seprate(data)
-
         this.ProfileImgUrl = profile[0].imgurl
-
-
       })
   }
   getAuthPublicPost() {
-
-
     this.isAll = false;
     this.isPublic = true;
     this.isPrivate = false;
     this.isFetching = true;
-
     this.puSub = this.acrud.pu.subscribe(d => {
-
       if (d) {
         this.sortDesecendingByDate(d)
         this.public_post = d
@@ -406,17 +342,13 @@ export class UPostDetailComponent implements OnInit {
     },
       err =>
         this.error = err)
-
   }
 
   getAuthAllPost() {
     this.isFetching = true
-
-
     this.isAll = true;
     this.isPublic = false;
     this.isPrivate = false;
-
     this.acrud.getAllData()
       .subscribe(data => {
 
@@ -541,7 +473,7 @@ export class UPostDetailComponent implements OnInit {
               window.location.reload()
             }, 900)
           })
-      }  
+      }
     else {
       alert("Please Login or create your account to do Comment")
     }

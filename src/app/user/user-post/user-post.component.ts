@@ -50,10 +50,6 @@ export class UserPostComponent implements OnInit {
     this.url = this.url[2]
     this.acrud.getDemo1();
     this.acrud.getDemo2()
-
-
-
-
     this.route.params
       .subscribe(
         (params: Params) => {
@@ -75,7 +71,6 @@ export class UserPostComponent implements OnInit {
             this.getPriavtePosts()
           }
         });
-
   }
   getAllPosts() {
     this.isLoading$.next(true);
@@ -95,10 +90,7 @@ export class UserPostComponent implements OnInit {
         this.count_all = this.allpost.length
         this.isLoading$.next(false);
         this.isFetching = false
-
-
       },
-
         err => {
           this.error = err
         })
@@ -106,20 +98,16 @@ export class UserPostComponent implements OnInit {
 
   getPublicPosts() {
     this.isLoading$.next(true);
-
     this.isAll = false;
     this.isPublic = true;
     this.isPrivate = false;
     this.isFetching = true;
-
-
     this.puSub = this.acrud.pu.subscribe(d => {
       this.public_post = d
       if (this.public_post) {
         this.sortDesecendingByDate(this.public_post)
       }
       this.isFetching = false;
-
     },
       error => {
         this.isFetching = false;
@@ -128,21 +116,16 @@ export class UserPostComponent implements OnInit {
       () => {
         this.isFetching = false;
       })
-
-
   }
   getPriavtePosts() {
-
     this.isAll = false;
     this.isPublic = false;
     this.isPrivate = true;
     this.isFetching = true;
-
     this.prSub = this.acrud.pr.subscribe(d => {
       this.private_post = d
       this.count_pr = this.private_post.length
       this.isFetching = false
-
     },
       error => {
         this.error = error;

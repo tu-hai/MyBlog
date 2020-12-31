@@ -25,8 +25,6 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.getAllPost()
     this.getFeaturedPost()
-
-
   }
 
   getAllPost() {
@@ -55,13 +53,10 @@ export class HomeComponent implements OnInit {
         let y = this.acrud.seprate(this.featuredPost[i].commentData)
         this.commenData.push(y)
       }
-
     },
       err => {
         console.log(err)
       })
-
-
   }
 
   public_data() {
