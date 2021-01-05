@@ -24,7 +24,6 @@
         </ul>
       </div>
     </div>
-
     <div class="collapse navbar-collapse" id="myHeader">
       <ul class="nav navbar-nav">
         <li routerLinkActive="active">
@@ -34,28 +33,30 @@
           <!--    <a routerLink="/signup">Sign-up</a> -->
         </li>
         <li routerLinkActive="active">
-          <a *ngIf="allpostcount==0" routerLink="/create-post">Create post</a>
-          <a *ngIf="allpostcount>0" routerLink="/create-post">Add Post</a>
+          <a class="hover-underline" *ngIf="allpostcount==0" routerLink="/create-post">Create post</a>
+          <a class="hover-underline" *ngIf="allpostcount>0" routerLink="/create-post">Add Post</a>
         </li>
 
         <li routerLinkActive="active" *ngIf="!isAuthenticated">
-          <a routerLink="/auth">Authenticate</a>
+          <a class="hover-underline" routerLink="/auth">Authenticate</a>
         </li>
         <li routerLinkActive="active" *ngIf="isAuthenticated && isemailverfied">
-          <a routerLink="/myposts">MyPosts</a>
+          <a class="hover-underline" routerLink="/myposts">MyPosts</a>
         </li>
         <li routerLinkActive="active" *ngIf="isAuthenticated && !isprofileSet ">
-          <a routerLink='/myprofile'>CreateProfile</a>
+          <a class="hover-underline" routerLink='/myprofile'>CreateProfile</a>
         </li>
         <li routerLinkActive="active" *ngIf="isAuthenticated && isprofileSet && isemailverfied">
-          <a [routerLink]="['/myprofile', username]">MyProfile</a>
+          <a class="hover-underline" [routerLink]="['/myprofile', username]">MyProfile</a>
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li *ngIf="isAuthenticated">
-          <a style="cursor: pointer;" (click)="onLogout()">Logout</a>
+          <a class="hover-underline" style="cursor: pointer;" (click)="ViewCV()">My CV</a>
         </li>
-
+        <li *ngIf="isAuthenticated">
+          <a class="hover-underline" style="cursor: pointer;" (click)="onLogout()">Logout</a>
+        </li>
       </ul>
     </div>
   </div>
@@ -67,13 +68,11 @@
           style="font-size: 24px; color: black;"></i></a>
     </li>
     <li class="nav-item inline-block">
-      <a href="" aria-label="Medium" class="nav-link">
-
-        <span><img class="img-circle medium-icon" width="24" alt=""
-            src="https://seeklogo.com/images/M/medium-logo-93CDCF6451-seeklogo.com.png"></span></a>
+      <a href="https://www.youtube.com/watch?v=hwccAx8iVag&list=FLHry7FzoRkJWX3vqxM5F7iw&ab_channel=TuHai" aria-label="Youtube" class="nav-link text-youtube"><i class="fa fa-youtube"
+          style="font-size: 24px; color: black;"></i></a>
     </li>
-    <li class="nav-item inline-block"><a href="" aria-label="Instagram"
-        class="nav-link"><i class="fa fa-instagram" style="font-size: 24px; color: black;"></i></a>
+    <li class="nav-item inline-block"><a href="https://www.facebook.com/hgiveup301/" aria-label="Facebook" class="nav-link"><i class="fa fa-facebook"
+          style="font-size: 24px; color: black;"></i></a>
     </li>
     <li class="nav-item inline-block">
       <a href="https://www.linkedin.com/in/vo-tu-hai-0311aa182/" aria-label="LinkedIn" class="nav-link"><i
@@ -81,15 +80,9 @@
     </li>
   </ul>
 </div>
-
 <div class="container middle">
-
-  <!-- <ngx-spinner bdColor="rgb(221,214,243,0.5)" size="medium" type="ball-spin-fade" color="#42275a" fullScreen=" true">
-      <p style="color: Black;font-size: 20px; font-weight: 600;">Loading News... </p>
-  </ngx-spinner> -->
   <router-outlet></router-outlet>
 </div>
-
 <div class="container" *ngIf="!isloading">
   <footer class="fadeInUp col-md-12">
     <a href="https://github.com/tu-hai/estimation-tool" class="button github"><svg xmlns="http://www.w3.org/2000/svg"
@@ -99,8 +92,7 @@
           d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
         </path>
       </svg><span>Open Sourced on GitHub</span></a>
-    <a href=""
-      class="button btn-light medium">
+    <a href="" class="button btn-light medium">
       <span><img class="img-circle" width="20" alt=""
           src="https://seeklogo.com/images/M/medium-logo-93CDCF6451-seeklogo.com.png">Read about this Project
         On MEDIUM</span></a>
@@ -118,8 +110,8 @@
             <span><img class="img-circle medium-icon" width="24" alt=""
                 src="https://seeklogo.com/images/M/medium-logo-93CDCF6451-seeklogo.com.png"></span></a>
         </li>
-        <li class="nav-item inline-block"><a href="" aria-label="Insagram"
-            class="nav-link"><i class="fa fa-instagram" style="font-size: 24px; color: black;"></i></a>
+        <li class="nav-item inline-block"><a href="" aria-label="Insagram" class="nav-link"><i class="fa fa-instagram"
+              style="font-size: 24px; color: black;"></i></a>
         </li>
         <li class="nav-item inline-block"><a href="https://www.linkedin.com/in/vo-tu-hai-0311aa182/"
             aria-label="LinkedIn" class="nav-link"><i class="fa fa-linkedin"
@@ -129,5 +121,4 @@
     </div>
   </footer>
 </div>
-
-<h5 *ngIf="!isloading" class="text-center copyright"> © Copyrights reserved by Tu Hai</h5>
+<h5 *ngIf="!isloading" class="text-center copyright"> ©Copyrights reserved by Tu Hai© 2021</h5>

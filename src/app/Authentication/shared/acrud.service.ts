@@ -110,7 +110,7 @@ export class ACrudService {
     this.getUid()
     this.ProfieData = {
       id: this.uid,
-      uname: value.uname,
+      uname: value.uname.trim(),
       desc: value.desc,
       email: value.email,
       name: value.name,
@@ -119,7 +119,7 @@ export class ACrudService {
       isProfileSet: true
 
     }
-    this.createPublicProfile(this.ProfieData, this.ProfieData.uname)
+    this.createPublicProfile(this.ProfieData, this.ProfieData.uname.trim())
     this.getUid().then(d => {
 
 
@@ -181,7 +181,7 @@ export class ACrudService {
       imgurl: this.ucrud.downloadURL,
       privacy: value.privacy,
       uid: this.id,
-      uname: this.uname,
+      uname: this.uname.trim(),
 
     }
     if (value.privacy == "true") {
@@ -312,7 +312,7 @@ export class ACrudService {
       privacy: formvalue.privacy,
       created_date: this.ucrud.currentDate,
       uid: value.uid,
-      uname: value.uname
+      uname: value.uname.trim()
 
     }
 
@@ -512,7 +512,7 @@ export class ACrudService {
   UpdateProfile(value, oldvalue, imgdownloadurl) {
     this.editedProfileData = {
       id: oldvalue.id,
-      uname: value.uname,
+      uname: value.uname.trim(),
       desc: value.desc,
       email: value.email,
       name: value.name,
@@ -620,7 +620,7 @@ export class ACrudService {
 
 
   sendUidandUname(uname, id) {
-    this.uname = uname
+    this.uname = uname.trim()
     this.id = id
   }
 

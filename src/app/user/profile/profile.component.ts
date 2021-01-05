@@ -78,10 +78,8 @@ export class ProfileComponent implements OnInit {
   }
   ngOnInit(): void {
     this.authService.user.subscribe((x: any) => {
-
       if (x.email) {
         this.email = x.email
-
       }
     })
     this.href = this.router.url;
@@ -91,14 +89,10 @@ export class ProfileComponent implements OnInit {
     if (this.x[2] && this.x[3] == "editProfile") {
       this.getProfileData()
     }
-
     this.CreateProfile()
-
     if (this.x[2] == null) {
       this.checkProfileExist()
-
     }
-
   }
   checkProfileExist() {
     this.acrud.getProfile().subscribe(d => {
@@ -113,9 +107,8 @@ export class ProfileComponent implements OnInit {
     this.acrud.getProfile().subscribe(d => {
       let x = this.acrud.seprate(d)
       this.profileReturned = x[0]
-
-      if (this.usernamParam !== this.profileReturned.uname) {
-        this.router.navigate(["home"])
+      if (this.usernamParam !== this.profileReturned.uname.trim()) {
+       // this.router.navigate(["home"])
       }
       this.SetProfileForm(x[0])
 

@@ -107,6 +107,10 @@ export class AppComponent implements OnInit {
 
       })
   }
+  ViewCV = () => {
+    alert ('you dont have permission to download CV ')
+    return;
+  }
   onLogout() {
     this.authService.logout();
   }
