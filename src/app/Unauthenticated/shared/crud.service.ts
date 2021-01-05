@@ -48,7 +48,6 @@ export class CrudService {
 
   get_public_post() {
     return this.afs.collection('normal-users').snapshotChanges().pipe(catchError(this.handleError))
-
   }
 
   sendUidandUname(uname, id) {
@@ -73,12 +72,8 @@ export class CrudService {
 
 
   uploadFile() {
-    const myTest = this.afs.collection('test').ref.doc();
     const file = this.selectedFile;
-
-
-    this.filepath = "UauthUsers"
-
+    this.filepath = 'UauthUsers'
     const filePath = `${this.filepath}/${file.name}`;
     const fileRef = this.afStorage.ref(filePath);
     const task = this.afStorage.upload(filePath, file);
@@ -88,9 +83,6 @@ export class CrudService {
         fileRef.getDownloadURL().toPromise().then((url) => {
           this.downloadURL = url;
           this.downloadurlchange.next(this.downloadURL)
-
-
-
         }).catch(err => { console.log(err) });
       })
     )

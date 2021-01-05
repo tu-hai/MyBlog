@@ -91,8 +91,6 @@ export class UCreatePostComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-
     this.userSub = this.authService.user.subscribe(user => {
       this.isAuthenticated = !!user;
 
@@ -126,8 +124,6 @@ export class UCreatePostComponent implements OnInit {
       this.isloading = false
       this.username = x[0].uname
       this.uid = x[0].id
-
-
       this.acrud.sendUidandUname(this.username, this.uid)
       this.firebaseService.sendUidandUname(this.username, this.uid)
     },

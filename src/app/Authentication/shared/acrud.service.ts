@@ -6,6 +6,7 @@ import { Subscription, Observable, BehaviorSubject, forkJoin, zip } from 'rxjs';
 import { AuthService } from './auth.service';
 import { map } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import { Router } from '@angular/router';
 import { Profile, User1 } from './user.model';
 import { ToastrService } from 'ngx-toastr';
@@ -86,13 +87,9 @@ export class ACrudService {
     return new Promise(res => {
       this.authService.user.subscribe((user) => {
         if (user) {
-
           this.uid = user.uid
-
-
         }
         res(this.uid)
-
       })
 
     })
@@ -127,7 +124,7 @@ export class ACrudService {
 
 
       this.http.post(
-        `https://write-your-heart-out-b338b.firebaseio.com/post/${this.uid}/profile.json`,
+        `https://fir-2f842.firebaseio.com/post/${this.uid}/profile.json`,
         this.ProfieData
       )
 
@@ -144,7 +141,7 @@ export class ACrudService {
   createPublicProfile(postdata: any, uname) {
 
     this.http.post(
-      `https://write-your-heart-out-b338b.firebaseio.com/PublicProfile/${uname}.json`,
+      `https://fir-2f842.firebaseio.com/PublicProfile/${uname}.json`,
       postdata
     )
 
@@ -161,13 +158,13 @@ export class ACrudService {
     if (this.uid) {
 
 
-      return this.http.get<Profile[]>(`https://write-your-heart-out-b338b.firebaseio.com/post/${this.uid}/profile.json`)
+      return this.http.get<Profile[]>(`https://fir-2f842.firebaseio.com/post/${this.uid}/profile.json`)
     }
     else {
       this.getUid().then((d: any) => {
 
         this.uid = d
-        return this.http.get<Profile[]>(`https://write-your-heart-out-b338b.firebaseio.com/post/${this.uid}/profile.json`)
+        return this.http.get<Profile[]>(`https://fir-2f842.firebaseio.com/post/${this.uid}/profile.json`)
       })
     }
 
@@ -191,7 +188,7 @@ export class ACrudService {
       this.getUid().then((d: any) => {
         this.uid = d
         this.http.post(
-          `https://write-your-heart-out-b338b.firebaseio.com/post/${this.uid}/public.json`,
+          `https://fir-2f842.firebaseio.com/post/${this.uid}/public.json`,
           this.postdata
         )
           .subscribe(responseData => {
@@ -210,7 +207,7 @@ export class ACrudService {
     else {
 
       this.http.post(
-        `https://write-your-heart-out-b338b.firebaseio.com/post//${this.uid}/private.json`,
+        `https://fir-2f842.firebaseio.com/post//${this.uid}/private.json`,
         this.postdata
       )
         .subscribe(responseData => {
@@ -220,19 +217,19 @@ export class ACrudService {
     }
   }
   getPublicPost(): Observable<UPost[]> {
-    return this.http.get<UPost[]>(`https://write-your-heart-out-b338b.firebaseio.com/post/${this.uid}/public.json`)
+    return this.http.get<UPost[]>(`https://fir-2f842.firebaseio.com/post/${this.uid}/public.json`)
 
   }
 
   getPrivatePost(): Observable<UPost[]> {
-    return this.http.get<UPost[]>(`https://write-your-heart-out-b338b.firebaseio.com/post/${this.uid}/private.json`)
+    return this.http.get<UPost[]>(`https://fir-2f842.firebaseio.com/post/${this.uid}/private.json`)
 
   }
 
   getAllData() {
     this.getUid()
-    let x = this.http.get<UPost[]>(`https://write-your-heart-out-b338b.firebaseio.com/post/${this.uid}/public.json`)
-    let y = this.http.get<UPost[]>(`https://write-your-heart-out-b338b.firebaseio.com/post/${this.uid}/private.json`)
+    let x = this.http.get<UPost[]>(`https://fir-2f842.firebaseio.com/post/${this.uid}/public.json`)
+    let y = this.http.get<UPost[]>(`https://fir-2f842.firebaseio.com/post/${this.uid}/private.json`)
     return forkJoin(x, y)
   }
   seprate(x1) {
@@ -248,7 +245,7 @@ export class ACrudService {
   }
 
   getDemo1() {
-    this.http.get<UPost[]>(`https://write-your-heart-out-b338b.firebaseio.com/post/${this.uid}/private.json`)
+    this.http.get<UPost[]>(`https://fir-2f842.firebaseio.com/post/${this.uid}/private.json`)
       .pipe(
         map(responseData => {
           const postsArray: UPost[] = [];
@@ -272,7 +269,7 @@ export class ACrudService {
   }
 
   getDemo2() {
-    this.http.get<UPost[]>(`https://write-your-heart-out-b338b.firebaseio.com/post/${this.uid}/public.json`)
+    this.http.get<UPost[]>(`https://fir-2f842.firebaseio.com/post/${this.uid}/public.json`)
       .pipe(
         map(responseData => {
           const postsArray: UPost[] = [];
@@ -398,7 +395,7 @@ export class ACrudService {
   deletePublicPost(postdata: {}, c: Observable<void>) {
     c.subscribe(x => {
       this.http.delete(
-        `https://write-your-heart-out-b338b.firebaseio.com/post/${this.uid}/public/${this.db_key}.json`)
+        `https://fir-2f842.firebaseio.com/post/${this.uid}/public/${this.db_key}.json`)
         .subscribe(d => {
           this.router.navigate(['myposts']);
         })
@@ -408,7 +405,7 @@ export class ACrudService {
   deletePrivatePost(postdata: {}, c: Observable<void>) {
     c.subscribe(x => {
       this.http.delete(
-        `https://write-your-heart-out-b338b.firebaseio.com/post/${this.uid}/private/${this.db_key}.json`)
+        `https://fir-2f842.firebaseio.com/post/${this.uid}/private/${this.db_key}.json`)
         .subscribe(d => {
 
           this.router.navigate(['myposts']);
@@ -419,7 +416,7 @@ export class ACrudService {
   Edit_Private_Post(postdata: {}, c) {
     c.subscribe(x => {
       this.http.patch(
-        `https://write-your-heart-out-b338b.firebaseio.com/post/${this.uid}/private/${this.db_key}.json`, postdata)
+        `https://fir-2f842.firebaseio.com/post/${this.uid}/private/${this.db_key}.json`, postdata)
         .subscribe(d => {
           this.router.navigate([`myposts/${this.url}/${this.post_id}`]);
           this.showSuccessEdit()
@@ -429,7 +426,7 @@ export class ACrudService {
   Edit_Public_Post(postdata: {}, c) {
     c.subscribe(x => {
       this.http.patch(
-        `https://write-your-heart-out-b338b.firebaseio.com/post/${this.uid}/public/${this.db_key}.json`, postdata)
+        `https://fir-2f842.firebaseio.com/post/${this.uid}/public/${this.db_key}.json`, postdata)
         .subscribe(d => {
           this.router.navigate([`myposts/${this.url}/${this.post_id}`]);
           this.showSuccessEdit()
@@ -439,7 +436,7 @@ export class ACrudService {
   }
   Create_Private_Post(postdata: {}) {
     this.http.post(
-      `https://write-your-heart-out-b338b.firebaseio.com/post/${this.uid}/private.json`,
+      `https://fir-2f842.firebaseio.com/post/${this.uid}/private.json`,
       this.postdata
     )
       .subscribe(responseData => {
@@ -450,7 +447,7 @@ export class ACrudService {
 
   Create_Public_Post(postdata: {}) {
     this.http.post(
-      `https://write-your-heart-out-b338b.firebaseio.com/post/${this.uid}/public.json`,
+      `https://fir-2f842.firebaseio.com/post/${this.uid}/public.json`,
       postdata
     )
       .subscribe(responseData => {
@@ -469,7 +466,7 @@ export class ACrudService {
   }
 
   pb(id, value) {
-    return this.http.get<UPost[]>(`https://write-your-heart-out-b338b.firebaseio.com/post/${this.uid}/public.json`)
+    return this.http.get<UPost[]>(`https://fir-2f842.firebaseio.com/post/${this.uid}/public.json`)
       .pipe(
         map(responseData => {
 
@@ -489,7 +486,7 @@ export class ACrudService {
   }
 
   getpr(value) {
-    return this.http.get<UPost[]>(`https://write-your-heart-out-b338b.firebaseio.com/post/${this.uid}/private.json`)
+    return this.http.get<UPost[]>(`https://fir-2f842.firebaseio.com/post/${this.uid}/private.json`)
       .pipe(
         map(responseData => {
 
@@ -534,7 +531,7 @@ export class ACrudService {
     c.subscribe(d => {
 
       this.http.delete(
-        `https://write-your-heart-out-b338b.firebaseio.com/PublicProfile/${uname}.json`
+        `https://fir-2f842.firebaseio.com/PublicProfile/${uname}.json`
       )
 
         .subscribe(responseData => {
@@ -543,7 +540,7 @@ export class ACrudService {
 
       this.createPublicProfile(this.editedProfileData, newuname)
       this.http.patch(
-        `https://write-your-heart-out-b338b.firebaseio.com/post/${this.uid}/profile/${this.db_key}.json`,
+        `https://fir-2f842.firebaseio.com/post/${this.uid}/profile/${this.db_key}.json`,
         this.editedProfileData
       )
         .subscribe(responseData => {
@@ -559,7 +556,7 @@ export class ACrudService {
   }
   getPublicProfileKey(value: any, uname: any) {
 
-    return this.http.get<Profile[]>(`https://write-your-heart-out-b338b.firebaseio.com/PublicProfile/${uname}.json`)
+    return this.http.get<Profile[]>(`https://fir-2f842.firebaseio.com/PublicProfile/${uname}.json`)
       .pipe(
         map(responseData => {
 
@@ -578,7 +575,7 @@ export class ACrudService {
   }
 
   getProfileKey(value: any, uname: any) {
-    return this.http.get<Profile[]>(`https://write-your-heart-out-b338b.firebaseio.com/post/${this.uid}/profile.json`)
+    return this.http.get<Profile[]>(`https://fir-2f842.firebaseio.com/post/${this.uid}/profile.json`)
       .pipe(
         map(responseData => {
 
@@ -603,22 +600,22 @@ export class ACrudService {
 
   getPublicProfile(uname): Observable<Profile[]> {
 
-    return this.http.get<Profile[]>(`https://write-your-heart-out-b338b.firebaseio.com/PublicProfile/${uname}.json`)
+    return this.http.get<Profile[]>(`https://fir-2f842.firebaseio.com/PublicProfile/${uname}.json`)
   }
 
   getProfileFromUid(uid): Observable<UPost[]> {
 
-    return this.http.get<UPost[]>(`https://write-your-heart-out-b338b.firebaseio.com/post/${uid}/profile.json`)
+    return this.http.get<UPost[]>(`https://fir-2f842.firebaseio.com/post/${uid}/profile.json`)
   }
 
   getPublicPostsFromProfileId(uid): Observable<UPost[]> {
     this.uid = uid
-    return this.http.get<UPost[]>(`https://write-your-heart-out-b338b.firebaseio.com/post/${this.uid}/public.json`)
+    return this.http.get<UPost[]>(`https://fir-2f842.firebaseio.com/post/${this.uid}/public.json`)
   }
 
   getPrivateFromProfileId(uid): Observable<UPost[]> {
     this.uid = uid
-    return this.http.get<UPost[]>(`https://write-your-heart-out-b338b.firebaseio.com/post/${this.uid}/private.json`)
+    return this.http.get<UPost[]>(`https://fir-2f842.firebaseio.com/post/${this.uid}/private.json`)
   }
 
 
@@ -652,7 +649,7 @@ export class ACrudService {
       }
 
       this.http.patch(
-        `https://write-your-heart-out-b338b.firebaseio.com/post/${postuserid}/public/${postid}/likestatus.json`,
+        `https://fir-2f842.firebaseio.com/post/${postuserid}/public/${postid}/likestatus.json`,
         likedata)
 
         .subscribe(responseData => {
@@ -671,7 +668,7 @@ export class ACrudService {
         const found = allusrid.some(el => el === this.uid);
         if (found) {
           this.http.put(
-            `https://write-your-heart-out-b338b.firebaseio.com/post/${postuserid}/public/${postid}/likestatus/uid/${userlikedetailkey}.json`,
+            `https://fir-2f842.firebaseio.com/post/${postuserid}/public/${postid}/likestatus/uid/${userlikedetailkey}.json`,
             userdata
           ).subscribe(d => {
 
@@ -680,7 +677,7 @@ export class ACrudService {
 
         if (!found) {
           this.http.post(
-            `https://write-your-heart-out-b338b.firebaseio.com/post/${postuserid}/public/${postid}/likestatus/uid.json`,
+            `https://fir-2f842.firebaseio.com/post/${postuserid}/public/${postid}/likestatus/uid.json`,
             userdata
           ).subscribe(d => {
 
@@ -697,7 +694,7 @@ export class ACrudService {
   getLike(postuserid, title, desc) {
     let dbkey
     this.http.get(
-      `https://write-your-heart-out-b338b.firebaseio.com/post/${postuserid}/public.json`)
+      `https://fir-2f842.firebaseio.com/post/${postuserid}/public.json`)
       .subscribe(post => {
         for (const key in post) {
           if ((post[key].title == title) && (post[key].desc == desc)) {
@@ -706,13 +703,13 @@ export class ACrudService {
         }
 
         return this.http.get(
-          `https://write-your-heart-out-b338b.firebaseio.com/post/${postuserid}/public/${dbkey}/likestatus.json`)
+          `https://fir-2f842.firebaseio.com/post/${postuserid}/public/${dbkey}/likestatus.json`)
       })
   }
 
   getPostId(postuserid, title, desc) {
     return this.http.get(
-      `https://write-your-heart-out-b338b.firebaseio.com/post/${postuserid}/public.json`)
+      `https://fir-2f842.firebaseio.com/post/${postuserid}/public.json`)
   }
 
   getPostDetailForLike(postid, title, desc) {
@@ -730,7 +727,7 @@ export class ACrudService {
         }
       }
       if (dbkey) {
-        this.http.get(`https://write-your-heart-out-b338b.firebaseio.com/post/${postid}/public/${dbkey}.json`)
+        this.http.get(`https://fir-2f842.firebaseio.com/post/${postid}/public/${dbkey}.json`)
           .subscribe((data: any) => {
 
             this.PostDataForLikeCount.next(data.likestatus?.count)
@@ -757,7 +754,7 @@ export class ACrudService {
       this.getCommentKey(post_userid, title, desc).
         then(d => {
           dbkey = d
-          this.http.post(`https://write-your-heart-out-b338b.firebaseio.com/post/${post_userid}/public/${dbkey}/commentData.json`, this.commentData)
+          this.http.post(`https://fir-2f842.firebaseio.com/post/${post_userid}/public/${dbkey}/commentData.json`, this.commentData)
             .subscribe((data: any) => {
               this.getCommentDataFromKey(post_userid, dbkey)
               res(true)
@@ -768,7 +765,7 @@ export class ACrudService {
   }
 
   getCommentDataFromKey(post_userid, dbkey) {
-    return this.http.get(`https://write-your-heart-out-b338b.firebaseio.com/post/${post_userid}/public/${dbkey}/commentData.json`)
+    return this.http.get(`https://fir-2f842.firebaseio.com/post/${post_userid}/public/${dbkey}/commentData.json`)
   }
   getCommentKey(post_userid: any, title: any, desc: any) {
     return new Promise(resolve => {
@@ -812,30 +809,23 @@ export class ACrudService {
 
   getFeaturedPost() {
     return new Promise(resolve => {
-      this.http.get(`https://write-your-heart-out-b338b.firebaseio.com/post.json`).subscribe(d => {
+      this.http.get(`https://fir-2f842.firebaseio.com/post.json`).subscribe(d => {
           let x = this.seprate(d)
-
           let z = []
+          debugger;
           for (let i in x) {
-
             let featured = x[i].public
-
             z = z.concat(this.seprate(featured))
-
             this.featuredPost = z
             let s = []
             for (let a in this.featuredPost) {
-
-              if (this.featuredPost[a].likestatus?.count > 10) {
+              if (this.featuredPost[a].likestatus?.count > 1) {
                 s = s.concat(this.featuredPost[a])
                 this.featuredPostsorted = s
               }
-
             }
           }
           resolve(this.featuredPostsorted)
-
-
         })
 
     })
@@ -844,8 +834,9 @@ export class ACrudService {
   }
 
   getAllPost() {
+   // return this.db.list('post').valueChanges();
     return new Promise(resolve => {
-      this.http.get('assets/post.json').subscribe(d => {
+      this.http.get('https://fir-2f842.firebaseio.com/post.json').subscribe(d => {
           let x = this.seprate(d)
           let z = []
           for (let i in x) {
@@ -853,7 +844,6 @@ export class ACrudService {
             z = z.concat(this.seprate(featured))
           }
           resolve(z)
-
         })
     })
   }

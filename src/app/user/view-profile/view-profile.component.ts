@@ -43,9 +43,6 @@ export class ViewProfileComponent implements OnInit {
 
     });
 
-
-
-
     this.route.params
       .subscribe(
         (params: Params) => {
@@ -98,7 +95,6 @@ export class ViewProfileComponent implements OnInit {
   }
 
   getUidFromService() {
-
     this.acrud.getPublicProfile(this.unameParam).subscribe(d => {
       let x = this.acrud.seprate(d)
       if (x[0]) {

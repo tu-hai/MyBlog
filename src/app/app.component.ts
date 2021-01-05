@@ -101,9 +101,6 @@ export class AppComponent implements OnInit {
         let x3 = []
         x3 = this.acrud.seprate(x1)
         let x4 = this.acrud.seprate(x2)
-
-
-
         let x5 = x3.concat(x4)
         this.allpostcount = x5.length
         this.isloading = false

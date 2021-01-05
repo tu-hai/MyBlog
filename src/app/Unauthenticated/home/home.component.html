@@ -15,7 +15,7 @@
             </div>
 
             <div *ngIf="(featuredPost  | filter:searchText ) as result">
-                <h3 class="Featured">Featured Posts</h3>
+                <h3 class="Featured">Most-liked Posts</h3>
                 <div *ngIf="!isFetching && result?.length>0">
                     <div class="card row card-featured" *ngFor="let i of result ;let c= index ">
                         <a [routerLink]="['/featured',c]">
@@ -40,7 +40,6 @@
                         </a>
                     </div>
                 </div>
-
                 <div class="text-left no-result">
                     <h4 *ngIf="result.length === 0">No Results Found</h4>
                 </div>
@@ -48,7 +47,6 @@
             </div>
         </div>
         <div class="col-md-6 col-sm-12 col-xs-12 col-md-pull-5">
-
             <div class="search-hero search-input-wrapper fadeInUp hidden-xs hidden-sm">
                 <label for="search1"></label>
                 <input class="form-control" type="text" id="search1" name="search1" [(ngModel)]="searchText" autocomplete="off" placeholder="   Search by Title or Author name">
@@ -60,10 +58,6 @@
             <div *ngIf="(sorted | filter:searchText) as result ">
                 <h3 class="Featured hidden-md hidden-lg">Latest Posts</h3>
                 <div *ngIf="!isFetching && result?.length>0">
-
-
-
-
                     <div class="card row" *ngFor="let i of result;let c= index ">
                         <a [routerLink]="[c]">
 
@@ -95,8 +89,6 @@
                     <h4 *ngIf="result.length === 0">No Results Found</h4>
                 </div>
             </div>
-
-
         </div>
 
 

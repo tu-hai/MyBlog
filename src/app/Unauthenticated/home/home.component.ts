@@ -32,6 +32,7 @@ export class HomeComponent implements OnInit {
     this.acrud.getAllPost().then((x: any) => {
       this.isFetching = false
       this.data = x
+      debugger
       this.sortDesecending(this.data)
 
     })
@@ -50,6 +51,7 @@ export class HomeComponent implements OnInit {
       let c = 0
       this.featuredPost = x
       for (let i in this.featuredPost) {
+        debugger;
         let y = this.acrud.seprate(this.featuredPost[i].commentData)
         this.commenData.push(y)
       }
@@ -63,6 +65,7 @@ export class HomeComponent implements OnInit {
     this.isFetching = true;
     this.cd.get_public_post()
       .subscribe(result => {
+        debugger;
         this.data = result.map(e => {
           return {
             ...e.payload.doc.data() as {}
