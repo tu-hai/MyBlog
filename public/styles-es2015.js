@@ -490,8 +490,8 @@ module.exports = exported;
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\MyProject\MyBlog\node_modules\bootstrap\dist\css\bootstrap.css */"./node_modules/bootstrap/dist/css/bootstrap.css");
-module.exports = __webpack_require__(/*! C:\MyProject\MyBlog\src\styles.css */"./src/styles.css");
+__webpack_require__(/*! C:\Users\ADMIN\Desktop\blog\MyBlog\node_modules\bootstrap\dist\css\bootstrap.css */"./node_modules/bootstrap/dist/css/bootstrap.css");
+module.exports = __webpack_require__(/*! C:\Users\ADMIN\Desktop\blog\MyBlog\src\styles.css */"./src/styles.css");
 
 
 /***/ })

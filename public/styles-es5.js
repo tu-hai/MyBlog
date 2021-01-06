@@ -527,11 +527,11 @@
   /***/
   function _(module, exports, __webpack_require__) {
     __webpack_require__(
-    /*! C:\MyProject\MyBlog\node_modules\bootstrap\dist\css\bootstrap.css */
+    /*! C:\Users\ADMIN\Desktop\blog\MyBlog\node_modules\bootstrap\dist\css\bootstrap.css */
     "./node_modules/bootstrap/dist/css/bootstrap.css");
 
     module.exports = __webpack_require__(
-    /*! C:\MyProject\MyBlog\src\styles.css */
+    /*! C:\Users\ADMIN\Desktop\blog\MyBlog\src\styles.css */
     "./src/styles.css");
     /***/
   }

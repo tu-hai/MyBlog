@@ -80,7 +80,6 @@ export class UserPostComponent implements OnInit {
     this.isPrivate = false;
     this.acrud.getAllData()
       .subscribe(data => {
-        debugger
         let x1 = data[0]
         let x2 = data[1]
         let x3 = []
@@ -105,7 +104,6 @@ export class UserPostComponent implements OnInit {
     this.isFetching = true;
     this.puSub = this.acrud.pu.subscribe(d => {
       this.public_post = d
-      debugger
       if (this.public_post) {
         this.sortDesecendingByDate(this.public_post)
       }
@@ -125,7 +123,6 @@ export class UserPostComponent implements OnInit {
     this.isPrivate = true;
     this.isFetching = true;
     this.prSub = this.acrud.pr.subscribe(d => {
-      debugger
       this.private_post = d
       this.count_pr = this.private_post.length
       this.isFetching = false

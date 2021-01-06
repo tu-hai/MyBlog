@@ -812,7 +812,6 @@ export class ACrudService {
       this.http.get(`https://fir-2f842.firebaseio.com/post.json`).subscribe(d => {
           let x = this.seprate(d)
           let z = []
-          debugger;
           for (let i in x) {
             let featured = x[i].public
             z = z.concat(this.seprate(featured))
